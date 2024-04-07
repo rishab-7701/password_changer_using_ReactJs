@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 function App() {
   
-  const [length,setLength] = useState(8);
+  const [length,setLength] = useState(6);
   // this react hook initializes a state variable name 'length' with an initial value of '8' and a function 'setLength' to update its value in the UI
   const [numAllowed,setNumAllowed] = useState(false);
   // this react hook initializes a state variable named 'numAllowed' with an initial boolean value 'false' and a function 'setNumAllowed' to update its value in the UI
@@ -17,6 +17,7 @@ function App() {
   //useRef hook-it is used to reference a value that is not needed for Rendering
   const passwordRef = useRef(null);
 
+
   // useCallback is used for optimization
   const passwordGenerator = useCallback(() => {
     let pass = "";
@@ -25,7 +26,7 @@ function App() {
     if(numAllowed) str+= "0123456789";
     if(charAllowed) str+= "!@#%^&*(){}[]~`-_+=";
 
-    for (let i = 1; i < length; i++){
+    for (let i = 1; i <=length; i++){
        let char = Math.floor(Math.random()*str.length+1);
        pass += str.charAt(char);
     }
@@ -65,6 +66,12 @@ function App() {
           onClick={copyPasswordToClipboard} // added an onclick event listener to copy the generated password from the input field into the browser clipboard
           className='outline-none bg-gradient-to-r from-emerald-800 to-neutral-400 text-white px-3 py-0.5 shrink-0'
           >copy</button>
+        </div>
+        <div className='flex text-sm gap-x-6'>
+          <button className='text-white px-2 py-3 bg-gradient-to-r from-emerald-800 to-neutral-400 mb-3 rounded-lg'
+          onClick={passwordGenerator}
+          > Regenerate
+          </button>
         </div>
         <div className='flex text-sm gap-x-6'>
            <div className='flex items-center gap-x-1'>
